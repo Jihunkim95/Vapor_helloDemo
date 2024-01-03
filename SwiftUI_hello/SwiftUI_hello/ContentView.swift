@@ -55,7 +55,6 @@ class UserListViewModel: ObservableObject{
                 print("Error occurred: \(error)")
                 return
             }
-            
             // 사용자 추가 후 사용자 목록을 다시 로드합니다.
             DispatchQueue.main.async {
                 self.loadUsers()
