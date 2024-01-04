@@ -24,11 +24,8 @@ let package = Package(
             ]
         ),
         .testTarget(name: "AppTests", dependencies: [
-            .target(name: "App"),
-            .product(name: "XCTVapor", package: "vapor"),
+            .target(name: "App")
 
-            // Workaround for https://github.com/apple/swift-package-manager/issues/6940
-            .product(name: "Vapor", package: "vapor"),
         ])
     ]
 )
