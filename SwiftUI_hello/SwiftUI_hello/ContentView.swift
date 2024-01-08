@@ -18,7 +18,7 @@ class UserListViewModel: ObservableObject{
     @Published var users: [User] = []
     
     func loadUsers() {
-        guard let url = URL(string: "http://127.0.0.1:8080/usersQuery") else { return }
+        guard let url = URL(string: "http://3.36.225.189:8080/usersQuery") else { return }
 
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -42,7 +42,7 @@ class UserListViewModel: ObservableObject{
 
     func addUser(username: String, email: String) {
         let newUser = User(id: nil, username: username, email: email, createdAt: nil)
-        guard let url = URL(string: "http://127.0.0.1:8080/users") else { return }
+        guard let url = URL(string: "http://3.36.225.189:8080/users") else { return }
         guard let uploadData = try? JSONEncoder().encode(newUser) else { return }
 
         var request = URLRequest(url: url)
