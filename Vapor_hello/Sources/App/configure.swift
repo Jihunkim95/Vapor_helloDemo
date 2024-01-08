@@ -17,9 +17,13 @@ public func configure(_ app: Application) async throws {
         tlsConfiguration: .forClient(certificateVerification: .none)
     ), as: .psql)
     
+    // 마이그레이션 추가
     app.migrations.add(CreateUser())
 
-    
+
     // register routes
     try routes(app)
+    //마이그레이션 자동실행
+    try await app.autoMigrate().get()
+//    try await app.autoMigrate().get()
 }

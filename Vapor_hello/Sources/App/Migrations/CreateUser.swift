@@ -8,10 +8,11 @@ import Fluent
 import Vapor
 import Foundation
 
+//
 struct CreateUser: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {
         return database.schema("users")
-            .id()
+            .field("id", .int, .identifier(auto: true)) // 자동채번 활성화
             .field("username", .string, .required)
             .field("email", .string, .required)
             .field("created_at", .datetime, .required)
