@@ -59,8 +59,12 @@ struct UserListView: View {
             .padding()
             .background(Color(.systemBackground))
             
-        }.onAppear{
+        }
+        .onAppear{
             userVM.loadUsers()
+        }
+        .alert(isPresented: $userVM.showAlert){
+            Alert(title: Text("오류"), message: Text(userVM.alertMessage), dismissButton: .default(Text("확인")))
         }
 
         

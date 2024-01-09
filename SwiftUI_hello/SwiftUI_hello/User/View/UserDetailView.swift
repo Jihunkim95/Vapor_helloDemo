@@ -25,6 +25,10 @@ struct UserDetailView: View {
         }
         .navigationTitle(user.username)
         .navigationBarTitleDisplayMode(.inline)
+        .alert(isPresented: $userVM.showAlert){
+            Alert(title: Text("오류"), message: Text(userVM.alertMessage), dismissButton: .default(Text("확인")))
+        }
+
 
     }
 }
