@@ -10,6 +10,8 @@ import Foundation
 // ViewModel
 class UserViewModel: ObservableObject{
     @Published var users: [User] = []
+    @Published var alertMessage: String = ""
+    @Published var showAlert: Bool = false
     
     func loadUsers() {
         guard let url = URL(string: "http://0.0.0.0:8080/usersQuery") else { return }
@@ -46,9 +48,30 @@ class UserViewModel: ObservableObject{
 
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
-                print("Error occurred: \(error)")
+                DispatchQueue.main.async{
+                    self.alertMessage = error.localizedDescription
+                    self.showAlert = true
+                }
                 return
             }
+            
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                if let data = data {
+                    let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+                    let errorMessage = json?["reason"] as? String ?? "알 수 없는 오류가 발생했습니다."
+                    DispatchQueue.main.async{
+                        self.alertMessage = errorMessage
+                        self.showAlert = true
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.alertMessage = "알 수 없는 오류가 발생했습니다."
+                        self.showAlert = true
+                    }
+                }
+                return
+            }
+            
             // 사용자 추가 후 사용자 목록을 다시 로드합니다.
             DispatchQueue.main.async {
                 self.loadUsers()
@@ -67,9 +90,30 @@ class UserViewModel: ObservableObject{
 
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
-                print("Error occurred: \(error)")
+                DispatchQueue.main.async {
+                    self.alertMessage = error.localizedDescription
+                    self.showAlert = true
+                }
                 return
             }
+            //서버 메세지 받기
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                if let data = data {
+                    let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+                    let errorMessage = json?["reason"] as? String ?? "알 수 없는 오류가 발생했습니다."
+                    DispatchQueue.main.async{
+                        self.alertMessage = errorMessage
+                        self.showAlert = true
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.alertMessage = "알 수 없는 오류가 발생했습니다."
+                        self.showAlert = true
+                    }
+                }
+                return
+            }
+            
             // 사용자 정보 수정 후 사용자 목록을 다시 로드합니다.
             DispatchQueue.main.async {
                 self.loadUsers()
