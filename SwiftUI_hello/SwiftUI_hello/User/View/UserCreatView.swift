@@ -19,17 +19,27 @@ struct UserListView: View {
             VStack{
                 Section(header: Text("사용자 목록").font(.title)){
                     Divider()
-                    List(userVM.users){ user in
-                        NavigationLink(value: user){
-                            VStack(alignment: .leading){
-                                Text("사용자명: \(user.username)")
-                                    .font(.subheadline)
-                                Text("이메일: \(user.email)")
-                                    .font(.subheadline)
+                    List{
+                        ForEach(userVM.users, id: \.self){user in
+                            NavigationLink(value: user){
+                                VStack(alignment: .leading){
+                                    Text("사용자명: \(user.username)")
+                                        .font(.subheadline)
+                                    Text("이메일: \(user.email)")
+                                        .font(.subheadline)
+                                }
+                            }
+                            
+                        }
+                        .onDelete{ indexSet in
+                            indexSet.forEach { index in
+                                let user = userVM.users[index]
+                                userVM.confirmDelete(user: user)
                             }
                         }
-
-                    }.padding()
+                    }
+                    .padding()
+                    .toolbar{EditButton()}
                     
                 }.navigationDestination(for: User.self) { user in
                     UserDetailView(userVM: userVM, user: user)
@@ -65,6 +75,16 @@ struct UserListView: View {
         }
         .alert(isPresented: $userVM.showAlert){
             Alert(title: Text("오류"), message: Text(userVM.alertMessage), dismissButton: .default(Text("확인")))
+        }
+        .alert(isPresented: $userVM.showDeleteAlert) {
+            Alert(
+                title: Text("삭제 확인"),
+                message: Text("삭제하시겠습니까?"),
+                primaryButton: .destructive(Text("삭제")) {
+                    userVM.deleteUser()
+                },
+                secondaryButton: .cancel()
+            )
         }
 
         

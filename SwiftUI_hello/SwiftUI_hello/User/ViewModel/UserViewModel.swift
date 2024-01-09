@@ -12,6 +12,8 @@ class UserViewModel: ObservableObject{
     @Published var users: [User] = []
     @Published var alertMessage: String = ""
     @Published var showAlert: Bool = false
+    var userToDelete: User?
+
     
     func loadUsers() {
         guard let url = URL(string: "http://0.0.0.0:8080/usersQuery") else { return }
@@ -119,6 +121,16 @@ class UserViewModel: ObservableObject{
                 self.loadUsers()
             }
         }.resume()
+    }
+    
+    func confirmDelete(user: User) {
+        self.userToDelete = user
+        self.showAlert = true
+        print(self.userToDelete)
+    }
+    
+    func deleteUser(){
+
     }
     
 }
