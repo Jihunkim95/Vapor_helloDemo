@@ -12,6 +12,7 @@ class UserViewModel: ObservableObject{
     @Published var users: [User] = []
     @Published var alertMessage: String = ""
     @Published var showAlert: Bool = false
+    @Published var showDeleteAlert: Bool = false
     var userToDelete: User?
 
     
@@ -125,12 +126,33 @@ class UserViewModel: ObservableObject{
     
     func confirmDelete(user: User) {
         self.userToDelete = user
-        self.showAlert = true
-        print(self.userToDelete)
+        self.showDeleteAlert = true
     }
     
     func deleteUser(){
+        guard let user = userToDelete else { return }
+        guard let url = URL(string: "http://0.0.0.0:8080/users/\(user.id ?? 0)") else { return }
+        dump(url)
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
 
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                DispatchQueue.main.async {
+                    self.alertMessage = error.localizedDescription
+                    self.showAlert = true
+                }
+                return
+            }
+
+            DispatchQueue.main.async {
+                if let index = self.users.firstIndex(where: { $0.id == user.id }) {
+                    self.users.remove(at: index)
+                }
+                self.userToDelete = nil
+                self.showDeleteAlert  = false
+            }
+        }.resume()
     }
     
 }

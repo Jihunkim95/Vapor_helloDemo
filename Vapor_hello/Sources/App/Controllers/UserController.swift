@@ -10,17 +10,7 @@ import Vapor
 import Fluent
 import SQLKit
 
-//func create(req: Request) async throws -> User {
-//    let newUser = try req.content.decode(User.self)
-//    if try await User.query(on: req.db)
-//        .filter(\.$username == newUser.username)
-//        .first()
-//        .get() != nil{
-//        throw Abort(.badRequest, reason: "사용중인 사용자명")
-//    }
-//    try await newUser.save(on: req.db)
-//    return newUser
-//}
+
 struct UserController {
     func create(req: Request) async throws -> User {
         let newUser = try req.content.decode(User.self)
@@ -82,5 +72,22 @@ struct UserController {
 
     func all(req: Request) async throws -> [User] {
         try await User.query(on: req.db).all()
+    }
+    
+    //삭제후 작업이 존재하지 않아 HTTPStatus 반환
+    func delete(req: Request) async throws -> HTTPStatus {
+        
+        guard let userID = req.parameters.get("userID", as: Int.self) else {
+            throw Abort(.badRequest, reason: "Invalid user ID.")
+        }
+        
+        let sqlDb = req.db as! SQLDatabase
+        
+        // 사용자 삭제
+        try await sqlDb.raw(
+            SQLQueryString("DELETE FROM users WHERE id = \(bind: userID)")
+        ).run()
+        
+        return .ok
     }
 }
