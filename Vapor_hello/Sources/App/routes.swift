@@ -1,16 +1,17 @@
 import Vapor
 
 func routes(_ app: Application) throws {
+    let userController = UserController()
     app.get { req async in
-        "It works!"
+        "Hello,AWS ubuntu Server Vapor World! 좋은 밤되세요!"
     }
 
     app.get("hello") { req async -> String in
         "Hello, world!"
     }
     
-    app.post("users", use: createUser)
-    app.get("usersQuery", use: usersQuery)
-
+    app.post("users", use: userController.create)
+    app.put("users", ":userID", use: userController.update)
+    app.get("usersQuery", use: userController.all)
 }
 

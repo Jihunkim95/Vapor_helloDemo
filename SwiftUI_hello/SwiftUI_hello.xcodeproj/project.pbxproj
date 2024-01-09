@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		5C2F55A82B4535460090F301 /* SwiftUI_helloApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F55A72B4535460090F301 /* SwiftUI_helloApp.swift */; };
-		5C2F55AA2B4535460090F301 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F55A92B4535460090F301 /* ContentView.swift */; };
+		5C2F55AA2B4535460090F301 /* UserCreatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F55A92B4535460090F301 /* UserCreatView.swift */; };
 		5C2F55AC2B4535480090F301 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C2F55AB2B4535480090F301 /* Assets.xcassets */; };
 		5C2F55B02B4535480090F301 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C2F55AF2B4535480090F301 /* Preview Assets.xcassets */; };
 		5C2F55BA2B4535480090F301 /* SwiftUI_helloTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F55B92B4535480090F301 /* SwiftUI_helloTests.swift */; };
 		5C2F55C42B4535480090F301 /* SwiftUI_helloUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F55C32B4535480090F301 /* SwiftUI_helloUITests.swift */; };
 		5C2F55C62B4535480090F301 /* SwiftUI_helloUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F55C52B4535480090F301 /* SwiftUI_helloUITestsLaunchTests.swift */; };
+		5CDE68C22B4B851A000A940B /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDE68C12B4B851A000A940B /* UserDetailView.swift */; };
+		5CDE68C72B4B89BC000A940B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDE68C62B4B89BC000A940B /* User.swift */; };
+		5CDE68CA2B4B8AE4000A940B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDE68C92B4B8AE4000A940B /* UserViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +39,7 @@
 /* Begin PBXFileReference section */
 		5C2F55A42B4535460090F301 /* SwiftUI_hello.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUI_hello.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C2F55A72B4535460090F301 /* SwiftUI_helloApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_helloApp.swift; sourceTree = "<group>"; };
-		5C2F55A92B4535460090F301 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5C2F55A92B4535460090F301 /* UserCreatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCreatView.swift; sourceTree = "<group>"; };
 		5C2F55AB2B4535480090F301 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C2F55AD2B4535480090F301 /* SwiftUI_hello.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftUI_hello.entitlements; sourceTree = "<group>"; };
 		5C2F55AF2B4535480090F301 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -46,6 +49,9 @@
 		5C2F55C32B4535480090F301 /* SwiftUI_helloUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_helloUITests.swift; sourceTree = "<group>"; };
 		5C2F55C52B4535480090F301 /* SwiftUI_helloUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_helloUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5C2F55D22B453A330090F301 /* SwiftUI-hello-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SwiftUI-hello-Info.plist"; sourceTree = SOURCE_ROOT; };
+		5CDE68C12B4B851A000A940B /* UserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
+		5CDE68C62B4B89BC000A940B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		5CDE68C92B4B8AE4000A940B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +104,7 @@
 			children = (
 				5C2F55D22B453A330090F301 /* SwiftUI-hello-Info.plist */,
 				5C2F55A72B4535460090F301 /* SwiftUI_helloApp.swift */,
-				5C2F55A92B4535460090F301 /* ContentView.swift */,
+				5CDE68C32B4B8977000A940B /* User */,
 				5C2F55AB2B4535480090F301 /* Assets.xcassets */,
 				5C2F55AD2B4535480090F301 /* SwiftUI_hello.entitlements */,
 				5C2F55AE2B4535480090F301 /* Preview Content */,
@@ -129,6 +135,41 @@
 				5C2F55C52B4535480090F301 /* SwiftUI_helloUITestsLaunchTests.swift */,
 			);
 			path = SwiftUI_helloUITests;
+			sourceTree = "<group>";
+		};
+		5CDE68C32B4B8977000A940B /* User */ = {
+			isa = PBXGroup;
+			children = (
+				5CDE68C82B4B89F3000A940B /* ViewModel */,
+				5CDE68C52B4B89AF000A940B /* Model */,
+				5CDE68C42B4B89A1000A940B /* View */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		5CDE68C42B4B89A1000A940B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5C2F55A92B4535460090F301 /* UserCreatView.swift */,
+				5CDE68C12B4B851A000A940B /* UserDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5CDE68C52B4B89AF000A940B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5CDE68C62B4B89BC000A940B /* User.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5CDE68C82B4B89F3000A940B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5CDE68C92B4B8AE4000A940B /* UserViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,7 +302,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C2F55AA2B4535460090F301 /* ContentView.swift in Sources */,
+				5CDE68C72B4B89BC000A940B /* User.swift in Sources */,
+				5C2F55AA2B4535460090F301 /* UserCreatView.swift in Sources */,
+				5CDE68C22B4B851A000A940B /* UserDetailView.swift in Sources */,
+				5CDE68CA2B4B8AE4000A940B /* UserViewModel.swift in Sources */,
 				5C2F55A82B4535460090F301 /* SwiftUI_helloApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
