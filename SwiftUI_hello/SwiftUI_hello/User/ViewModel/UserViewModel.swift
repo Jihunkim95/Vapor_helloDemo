@@ -15,9 +15,11 @@ class UserViewModel: ObservableObject{
     @Published var showDeleteAlert: Bool = false
     var userToDelete: User?
 
+    private let baseURL = "http://3.39.59.46:8080"
     
+    //조회
     func loadUsers() {
-        guard let url = URL(string: "http://0.0.0.0:8080/usersQuery") else { return }
+        guard let url = URL(string: "\(baseURL)/usersQuery") else { return }
 
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -27,7 +29,7 @@ class UserViewModel: ObservableObject{
 
             if let data = data {
                 let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .iso8601  // ISO 8601 날짜 형식을 사용합니다.
+                decoder.dateDecodingStrategy = .iso8601  // ISO 8601 날짜 형식을 사용
                 if let decodedUsers = try? decoder.decode([User].self, from: data) {
                     DispatchQueue.main.async {
                         self.users = decodedUsers
@@ -39,9 +41,10 @@ class UserViewModel: ObservableObject{
         }.resume()
     }
 
+    //저장
     func addUser(username: String, email: String) {
         let newUser = User(id: nil, username: username, email: email)
-        guard let url = URL(string: "http://0.0.0.0:8080/users") else { return }
+        guard let url = URL(string: "\(baseURL)/users") else { return }
         guard let uploadData = try? JSONEncoder().encode(newUser) else { return }
 
         var request = URLRequest(url: url)
@@ -82,8 +85,9 @@ class UserViewModel: ObservableObject{
         }.resume()
     }
     
+    //업데이트
     func updateUser(user: User) {
-        guard let url = URL(string: "http://0.0.0.0:8080/users/\(user.id ?? 0)") else { return }
+        guard let url = URL(string: "\(baseURL)/users/\(user.id ?? 0)") else { return }
         guard let uploadData = try? JSONEncoder().encode(user) else { return }
 
         var request = URLRequest(url: url)
@@ -124,15 +128,16 @@ class UserViewModel: ObservableObject{
         }.resume()
     }
     
+    //삭제 전 체크
     func confirmDelete(user: User) {
         self.userToDelete = user
         self.showDeleteAlert = true
     }
-    
+    //삭제
     func deleteUser(){
         guard let user = userToDelete else { return }
-        guard let url = URL(string: "http://0.0.0.0:8080/users/\(user.id ?? 0)") else { return }
-        dump(url)
+        guard let url = URL(string: "\(baseURL)/users/\(user.id ?? 0)") else { return }
+//        dump(url)
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
 
