@@ -60,6 +60,19 @@ struct UserListView: View {
                 HStack{
                     Button("입력"){
                         userVM.addUser(username: newUserName, email: newEmail)
+                        //아래는 키보드 숨김
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+
+                    }
+                    .padding()
+                    .foregroundColor(.blue)
+                    
+                    Button("취소"){
+                        newUserName = ""
+                        newEmail = ""
+                        // 키보드 숨김
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+
                     }
                     .padding()
                     .foregroundColor(.blue)
@@ -68,13 +81,13 @@ struct UserListView: View {
             }
             .padding()
             .background(Color(.systemBackground))
+            .alert(isPresented: $userVM.showAlert){
+                Alert(title: Text("오류"), message: Text(userVM.alertMessage), dismissButton: .default(Text("확인")))
+            }
             
         }
         .onAppear{
             userVM.loadUsers()
-        }
-        .alert(isPresented: $userVM.showAlert){
-            Alert(title: Text("오류"), message: Text(userVM.alertMessage), dismissButton: .default(Text("확인")))
         }
         .alert(isPresented: $userVM.showDeleteAlert) {
             Alert(
