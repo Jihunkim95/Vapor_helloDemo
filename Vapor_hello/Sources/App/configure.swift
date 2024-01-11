@@ -1,16 +1,25 @@
 import Fluent
 import FluentPostgresDriver
 import Vapor
+import NIOSSL
 
 // configures your application
 public func configure(_ app: Application) async throws {
-    // uncomment to serve files from /Public folder
-    // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
+    //EC2 서버용
+    let tlsConfiguration = TLSConfiguration.makeServerConfiguration(
+        certificateChain: try NIOSSLCertificate.fromPEMFile("/etc/letsencrypt/archive/cafeconnect.store/fullchain1.pem").map { .certificate($0) },
+        privateKey: .file("/etc/letsencrypt/archive/cafeconnect.store/privkey1.pem")
+    )
+
+    app.http.server.configuration.tlsConfiguration = tlsConfiguration
+    
+    //외부 접속허용
+    app.http.server.configuration.serverName = "0.0.0.0"
 
     //연결test시 상위 터미널에서 swift run실해
     // PostgreSQL 데이터베이스 연결 구성
     app.databases.use(.postgres(
-        hostname: "my-db-instance.cfwagaqykjab.ap-northeast-2.rds.amazonaws.com",
+        hostname: "cafeprojectdb.cxfmuelgpwdj.ap-southeast-2.rds.amazonaws.com",
         port: 5432, username: "postgres",
         password: "qwe12345",
         database: "initial_db",
