@@ -7,7 +7,6 @@
 import SwiftUI
 
 
-
 // View
 struct UserListView: View {
     @StateObject private var userVM = UserViewModel()
@@ -105,9 +104,5 @@ struct UserListView: View {
     
 }
 
-#Preview {
-    UserListView()
-
-}
 
 
