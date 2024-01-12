@@ -15,7 +15,7 @@ class UserViewModel: ObservableObject{
     @Published var showDeleteAlert: Bool = false
     var userToDelete: User?
 
-    private let baseURL = "http://3.39.59.46:8080"
+    private let baseURL = "https://cafeconnect.store:8080"
     
     //조회
     func loadUsers() {
